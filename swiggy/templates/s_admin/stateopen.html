@@ -1,0 +1,100 @@
+{% extends "s_admin/common.html" %}
+{% block common %}
+    {% load static %}
+    {% if request.session.status %}
+        <table align="center",border="0">
+        <tr>
+            <th>
+                {% include "s_admin/manu.html" %}
+            </th>
+        </tr>
+        <tr>
+            <th>
+                {% if sf %}
+                  <form action="{% url 'save_state' %}"method="post">
+                      {% csrf_token %}
+                <table align="center"border="0"style="background-color: palevioletred"width="500">
+
+                    <tr>
+                        <th style="color: blue;font-family: AngsanaUPC;font-size: 40px;text-align: center"colspan="2">State Operations</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center">{{ sf.state_no.label }}</th>
+                        <th style="text-align: center">{{ sf.state_no }}</th>
+                        <th>{{ sf.state_no.errors }}</th>
+                    </tr>
+
+                    <tr>
+                        <th style="text-align: center">{{ sf.state_name.label }}</th>
+                        <th style="text-align: center">{{ sf.state_name }}</th>
+                        <th >{{ sf.state_name.errors }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3" style="text-align: center">
+                            <button type="submit">save</button>
+                        </th>
+                    </tr>
+
+                </table>
+                  </form>
+                    {% elif supdate_data %}
+                        <form action="{% url 'upate_state_data' %}"method="post">
+                            {% csrf_token %}
+                        <table align="center" border="0" style="background-color: palevioletred"width="500">
+                        <tr>
+                        <th style="color: blue;font-family: AngsanaUPC;font-size: 40px;text-align: center"colspan="2">State Update Operations</th>
+                        </tr>
+                          <tr>
+                        <th style="text-align: center">State No</th>
+                        <th style="text-align: center">{{ supdate_data.sno }}
+                            <input type="hidden"value= "{{ supdate_data.sno }}"name="s1"></th>
+                    </tr>
+                        <tr>
+                             <th style="text-align: center">State Name</th>
+                         <th style="text-align: center">
+                             <input type="text"value= "{{ supdate_data.sname }}"name="s2"></th></th>
+                        </tr>
+                          <tr>
+                        <th colspan="3" style="text-align: center">
+                            <button type="submit">Update</button>
+                        </th>
+                    </tr>
+                        </table>
+                        </form>
+
+                        {% endif %}
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <table align="center"border="2"width="400"style="background-color: violet">
+                    <tr>
+                        <th style="color: lawngreen;font-family: 'Agency FB';font-size: 30px;background-color: bisque">State No</th>
+                        <th style="color: lawngreen;font-family: 'Agency FB';font-size: 30px;background-color: bisque">State Name</th>
+                        <th style="color: lawngreen;font-family: 'Agency FB';font-size: 30px;background-color: bisque">Update</th>
+                        <th style="color: lawngreen;font-family: 'Agency FB';font-size: 30px;background-color: bisque">Delete</th>
+                    </tr>
+                    {% for x in sdata %}
+
+                        <tr>
+                        <th>{{ x.state_no }}</th>
+                        <th>{{ x.state_name }}</th>
+                        <th style="text-align: center" ><a href="{% url 'update_state' %}?sno={{ x.state_no }}&sname={{ x.state_name }}">
+                            <img src="{% static 'images/update.JPEG' %}"width="30"></a>
+                        </th>
+                        <th style="text-align: center" ><a href="{% url 'delete_state' %}?sno={{ x.state_no }}">
+                            <img src="{% static 'images/deleteswiggy.JPEG' %}"width="40"></a>
+                        </th>
+                        </tr>
+                    {% endfor %}
+
+
+                </table>
+            </th>
+        </tr>
+
+        </table>
+    {% else %}
+    <h3 align="center"style="color: red;font-family: AngsanaUPC">Please Do Login</h3>
+    {% endif %}
+{% endblock %}

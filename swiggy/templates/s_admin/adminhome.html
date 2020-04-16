@@ -1,0 +1,29 @@
+{% extends "s_admin/common.html" %}
+{% block common %}<br>
+    {% load static %}
+
+    {% if request.session.status %}
+    <table>
+    <tr>
+        <th>
+             {% include "s_admin/manu.html" %}
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <table align="center">
+                <tr>
+                    <th align="center">
+                        <img src="{% static 'images/s_admin.JPEG' %}">
+                    </th>
+                </tr>
+            </table>
+        </th>
+    </tr>
+    </table>
+        {% else %}
+        <h3 align="center"style="color: darkorange;font-family: 'Bodoni MT Black';font-size: 40px">Please Do Login</h3>
+
+    {% endif %}
+
+{% endblock %}
