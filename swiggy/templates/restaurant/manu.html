@@ -1,0 +1,15 @@
+{% extends 'restaurant/common.html' %}
+{% block common %}
+    {% load static %}<br>
+    {% include "main_manu.html" %}
+    <table align="center"border="0">
+    <tr>
+        <td >
+            <img src="{% static 'images/res_img.JPEG' %}"width="300">
+        </td>
+    </tr>
+    {% for x in messages %}
+        <h3 style="color: darkturquoise;font-size: 25px;font-family: AngsanaUPC">{{ x }}</h3>
+    {% endfor %}
+    </table>
+{% endblock %}

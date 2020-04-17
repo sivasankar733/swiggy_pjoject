@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect
 from s_admin.models import LoginModel
 from s_admin.models import StateModel,CityModel,AreaModel,RestauranrTypeModel
 from s_admin.forms import StateForm,CityForm,AreaForm,RestaurantTypeForm
+from restaurant.models import RestaurantModel
+from restaurant.forms import RestaurantForm
+
 
 def admin_login(request):
     return render(request,'s_admin/admin_log.html')
@@ -154,3 +157,33 @@ def delete_type(request):
     tno=request.GET.get("tno")
     RestauranrTypeModel.objects.filter(type_no__exact=tno).delete()
     return redirect('type_open')
+
+
+def pending_res_details(request):
+    rs=RestaurantModel.objects.filter(res_status='pending')
+    return render(request,"s_admin/pending_res.html",{"data":rs})
+
+
+def accept_res(request):
+    rno=request.GET.get("rno")
+    RestaurantModel.objects.filter(res_id=rno).update(res_status='approved')
+    return redirect('adminhome_page')
+
+
+def reject_res(request):
+    rno=request.GET.get("rno")
+    RestaurantModel.objects.filter(res_id=rno).update(res_status='rejected')
+    return redirect('adminhome_page')
+
+def show_approval(request):
+    rs=RestaurantModel.objects.filter(res_status='approved')
+    return render(request,"s_admin/approval.html",{"data":rs})
+
+
+
+
+
+def show_cancel(request):
+
+    rs= RestaurantModel.objects.filter(res_status='rejected')
+    return render(request,"s_admin/cancel.html",{"data":rs})

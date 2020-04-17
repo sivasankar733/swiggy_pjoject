@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path,include
 
+from restaurant import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('',views.restaurant,name='restaurant'),
+    path('register/',views.restaurant_registration,name='register'),
+    path('save_resdata/',views.restaurant_data,name='save_resdata'),
 
 ]

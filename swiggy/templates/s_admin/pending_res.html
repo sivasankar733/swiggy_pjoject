@@ -1,0 +1,45 @@
+{% extends "s_admin/common.html" %}
+{% block common %}
+    {% load static %}
+    {% if request.session.status %}
+        {% include 's_admin/manu.html' %}<br>
+
+                    <table align="center"border="2">
+                           <tr>
+                               <th style="text-align: center;color:red;font-size: 30px;font-family: Aharoni"colspan="8">Pending Restaurant Information</th>
+                           </tr>
+
+                        <tr>
+                            <th style="text-align: center">No</th>
+                            <th style="text-align: center">Name</th>
+                            <th style="text-align: center">Contact No</th>
+                              <th style="text-align: center">Email</th>
+                            <th style="text-align: center" >Area</th>
+                            <th style="text-align: center">Type</th>
+                            <th style="text-align: center">Aprove</th>
+                            <th style="text-align: center">Cancel</th>
+                        </tr>
+                        {% for x in data %}
+                        <tr>
+                            <th>{{ x.res_id }}</th>
+                            <th>{{ x.res_name }}</th>
+                            <th>{{ x.res_contact }}</th>
+                            <th>{{ x.res_email }}</th>
+                            <th>{{ x.res_area }},{{ x.res_area.city.city_name }},{{ x.res_area.city.state.state_name }}.</th>
+                            <th>{{ x.res_type }}</th>
+                            <th style="text-align: center">
+                                <a href="{% url 'accept_res' %}?rno={{ x.res_id }}">
+                                    <img src="{% static 'images/accept.JPEG' %}"width="30"></a>
+                            </th>
+                            <th style="text-align: center">
+                                <a href="{% url 'reject_res' %}?rno={{ x.res_id }}">
+                                    <img src="{% static 'images/reject.JPEG' %}"width="50"></a>
+                            </th>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+    {% else %}
+        <h3 align="center"style="color: red;font-family: AngsanaUPC">Please Do Login</h3>
+    {% endif %}
+{% endblock %}

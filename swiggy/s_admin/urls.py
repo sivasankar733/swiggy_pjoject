@@ -15,13 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import path,include
-from django.views.generic import TemplateView
+
+
 
 from s_admin import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('',views.admin_login,name='admin_login'),
     path('adminlog_check/',views.loging_page,name='adminlog_check'),
     path('adminhome_page/',views.adminhome_page,name='adminhome_page'),
@@ -55,6 +54,13 @@ urlpatterns = [
     path('type_save/',views.type_data_save,name='type_save'),
     path('update_type/',views.type_update,name='update_type'),
     path('update_type_data/',views.update_type_data,name='update_type_data'),
-    path('delete_type/',views.delete_type,name='delete_type')
+    path('delete_type/',views.delete_type,name='delete_type'),
+
+    #restaurant
+    path('restaurant_details/',views.pending_res_details,name='restaurant_details'),
+    path('show_approval/',views.show_approval,name='show_approval'),
+    path('show_cancel/',views.show_cancel,name='show_cancel'),
+    path('accept_res/',views.accept_res,name='accept_res'),
+    path('reject_res/',views.reject_res,name='reject_res'),
 
 ]
